@@ -1,0 +1,15 @@
+id = cadf7bf9-455d-49c1-b274-32a0e58cb53f
+
+[relations]
+
+[relations.collections]
+rootDirectory = postman/collections
+files[] = {"path":"Product_08b85d49-e4e3-454b-b2df-892385ad8278.json","metaData":{}}
+
+[relations.collections.metaData]
+
+[relations.apiDefinition]
+rootDirectory = postman/schemas
+files[] = {"path":"schema.yaml","metaData":{}}
+
+[relations.apiDefinition.metaData]
