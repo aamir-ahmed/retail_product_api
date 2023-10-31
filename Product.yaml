@@ -205,3 +205,5 @@ components:
 tags:
   - name: Products
     description: A product object.
+security:
+    - testAuth : [] # comment out both security lines to demo errors 

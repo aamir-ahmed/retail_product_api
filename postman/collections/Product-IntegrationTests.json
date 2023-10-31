@@ -1,0 +1,815 @@
+{
+	"info": {
+		"_postman_id": "b177b5b6-7cf4-4f65-9395-ed0242d7b57c",
+		"name": "Product-IntegrationTests",
+		"description": "# Products - Endpoints for managing and retrieving products\n<img src=\"https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png\" alt=\"drawing\" width=\"30\" height=\"30\"/></img>\n\nThis collection includes api's for managing products as intended to contain core SCUM operations in addition to any other product contract functionality that is needed.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "16340986-b177b5b6-7cf4-4f65-9395-ed0242d7b57c"
+	},
+	"item": [
+		{
+			"name": "Add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "904107f2-b8f2-436e-9b18-45ee1c655e05",
+						"exec": [
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData.status).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Status key is not empty\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.status).to.exist.and.to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status key is a string\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData.status).to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status key is equal to 'success'\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.status).to.equal(\"success\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9bfea42d-e691-4b75-9fdb-c35abba54a14",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"category\": \"Jeans\",\n    \"brand\": \"Union\",\n    \"color\": \"black\",\n    \"gender\": \"m\",\n    \"unitPrice\": 49.99,\n    \"unitSalePrice\": 29.99\n}"
+				},
+				"url": {
+					"raw": "{{productsUrl}}/products/add",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"add"
+					]
+				},
+				"description": "A unique product ID will be generated automatically."
+			},
+			"response": [
+				{
+					"id": "c62500aa-ed99-4d67-9449-fadbd0a96532",
+					"name": "Added sucessfully",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "<string>"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": \"Jeans\",\n    \"brand\": \"Union\",\n    \"color\": \"black\",\n    \"gender\": \"m\",\n    \"unitPrice\": 49.99,\n    \"unitSalePrice\": 29.99\n}"
+						},
+						"url": {
+							"raw": "{{productsUrl}}/products/add",
+							"host": [
+								"{{productsUrl}}"
+							],
+							"path": [
+								"products",
+								"add"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"status\": \"success\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4bf355e1-9859-4a4a-9b8a-71961d7cf34f",
+						"exec": [
+							"pm.test(\"Verify that the 'status' key is present in the response\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.status).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the value of the 'status' key is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.status).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the value of the 'status' key is either 'success' or 'failure'\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.status).to.exist.and.to.be.oneOf(['success', 'failure']);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "a404856a-b3f1-4671-bbb9-7678a5d37ba8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"unitSalePrice\": 29.99\n}"
+				},
+				"url": {
+					"raw": "{{productsUrl}}/products/update?id=XYZ-JEAN-123",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"update"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "XYZ-JEAN-123",
+							"description": "The product ID to update."
+						}
+					]
+				},
+				"description": "Supports either full or partial updates."
+			},
+			"response": [
+				{
+					"id": "4f3d988f-883e-4d8d-a215-01833c5fad76",
+					"name": "Updated sucessfully",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "<string>"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unitSalePrice\": 29.99\n}"
+						},
+						"url": {
+							"raw": "{{productsUrl}}/products/update?id=XYZ-JEAN-123",
+							"host": [
+								"{{productsUrl}}"
+							],
+							"path": [
+								"products",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "XYZ-JEAN-123"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"status\": \"success\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cccdfb60-0f2a-4d2e-9798-599f2cbd851b",
+						"exec": [
+							"pm.test(\"Verify that the 'status' field is present in the response\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.status).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'status' field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.status).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'status' field value is 'success' or 'error'\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.status).to.exist.and.to.be.oneOf(['success', 'error']);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "1eb3c05e-e519-4baa-a1bd-db8ce5d1d014",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{productsUrl}}/products/delete?id=<string>",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "<string>",
+							"description": "The product ID to delete."
+						}
+					]
+				},
+				"description": "TODO: Add Description"
+			},
+			"response": [
+				{
+					"id": "29396ea3-1978-4c0e-850a-c85b17ae0a18",
+					"name": "Deleted successfully",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{productsUrl}}/products/delete?id=XYZ-JEAN-123",
+							"host": [
+								"{{productsUrl}}"
+							],
+							"path": [
+								"products",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "XYZ-JEAN-123"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"status\": \"success\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c41b60ff-748d-41dd-a547-b996a47591da",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Expect product to have all relevant keys\", function () {",
+							"    pm.expect(jsonData).to.include.all.keys(\"id\", \"category\", \"brand\", \"color\", \"gender\", \"unitPrice\", \"unitSalePrice\");",
+							"});",
+							"",
+							"pm.test(\"Expect gender to be m, f, or u (unisex)\", function () {",
+							"   pm.expect(jsonData.gender).to.be.oneOf([\"m\", \"f\", \"u\"]);",
+							"});",
+							"",
+							"pm.test(\"Expect ID, category, brand, color, gender to be string\", function () {",
+							"    pm.expect(jsonData.id).to.be.a('string');",
+							"    pm.expect(jsonData.category).to.be.a('string');",
+							"    pm.expect(jsonData.brand).to.be.a('string');",
+							"    pm.expect(jsonData.color).to.be.a('string');",
+							"    pm.expect(jsonData.gender).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Expect prices to be number\", function () {",
+							"    pm.expect(jsonData.unitPrice).to.be.a('number');",
+							"    pm.expect(jsonData.unitSalePrice).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Expect prices to be to 2dp or round number\", function () {",
+							"    var upSplit = String(jsonData.unitPrice).split(\".\");",
+							"    var uspSplit = String(jsonData.unitSalePrice).split(\".\");",
+							"    ",
+							"    if (upSplit.length > 1) {",
+							"        pm.expect(upSplit && upSplit[1]).to.have.length(2);   ",
+							"    } else {",
+							"        pm.expect(upSplit.length).to.eql(1);",
+							"    }",
+							"    ",
+							"    if (uspSplit.length > 1) {",
+							"        pm.expect(uspSplit && uspSplit[1]).to.have.length(2);   ",
+							"    } else {",
+							"        pm.expect(uspSplit.length).to.eql(1);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "172190d3-374a-4342-b960-68d93721f608",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{productsUrl}}/products/filter?id=XYZ-JEAN-123",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "XYZ-JEAN-123",
+							"description": "The product ID to return."
+						}
+					]
+				},
+				"description": "Get a product by filter."
+			},
+			"response": [
+				{
+					"id": "f09458e6-b546-4847-8102-fd1c57fe9a24",
+					"name": "By ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productsUrl}}/products/filter?id=XYZ-JEAN-123",
+							"host": [
+								"{{productsUrl}}"
+							],
+							"path": [
+								"products",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "XYZ-JEAN-123"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"id\": \"XYZ-JEAN-123\",\n \"category\": \"Jeans\",\n \"brand\": \"Union\",\n \"color\": \"black\",\n \"gender\": \"m\",\n \"unitPrice\": 49.99,\n \"unitSalePrice\": 29.99\n}"
+				}
+			]
+		},
+		{
+			"name": "Offers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69cd32c1-0b1c-4192-9794-33cbad21f952",
+						"exec": [
+							"var res = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Expect all products to be on offer\", function () {",
+							"    for (var i = 0; i < res.products.length; i++) {",
+							"        pm.expect(res.products[i].unitPrice).to.not.eql(res.products[i].unitSalePrice);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect product to have all relevant keys\", function () {",
+							"    for (var i = 0; i < res.products.length; i++) {",
+							"        pm.expect(res.products[i]).to.include.all.keys(\"id\", \"category\", \"brand\", \"color\", \"gender\", \"unitPrice\", \"unitSalePrice\");",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect gender to be m, f, or u (unisex)\", function () {",
+							"    for (var i = 0; i < res.products.length; i++) {",
+							"        pm.expect(res.products[i].gender).to.be.oneOf([\"m\", \"f\", \"u\"]);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect ID, category, brand, color, gender to be string\", function () {",
+							"    for (var i = 0; i < res.products.length; i++) {",
+							"        pm.expect(res.products[i].id).to.be.a('string');",
+							"        pm.expect(res.products[i].category).to.be.a('string');",
+							"        pm.expect(res.products[i].brand).to.be.a('string');",
+							"        pm.expect(res.products[i].color).to.be.a('string');",
+							"        pm.expect(res.products[i].gender).to.be.a('string');",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect prices to be number\", function () {",
+							"    for (var i = 0; i < res.products.length; i++) {",
+							"        pm.expect(res.products[i].unitPrice).to.be.a('number');",
+							"        pm.expect(res.products[i].unitSalePrice).to.be.a('number');",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect prices to be to 2dp or round number\", function () {",
+							"    for (var i = 0; i < res.products.length; i++) {",
+							"        var upSplit = String(res.products[i].unitPrice).split(\".\");",
+							"        var uspSplit = String(res.products[i].unitSalePrice).split(\".\");",
+							"        ",
+							"        if (upSplit.length > 1) {",
+							"            pm.expect(upSplit && upSplit[1]).to.have.length(2);   ",
+							"        } else {",
+							"            pm.expect(upSplit.length).to.eql(1);",
+							"        }",
+							"        ",
+							"        if (uspSplit.length > 1) {",
+							"            pm.expect(uspSplit && uspSplit[1]).to.have.length(2);   ",
+							"        } else {",
+							"            pm.expect(uspSplit.length).to.eql(1);",
+							"        }",
+							"    }",
+							"});",
+							"",
+							"",
+							"const template = `",
+							"    <style>",
+							"        .header {",
+							"            color: #fff;",
+							"            background: #2d2d2d;",
+							"            padding: 20px;",
+							"            margin-bottom: 20px;",
+							"        }",
+							"",
+							"        .header-inner, .products {",
+							"            width: 80%;",
+							"            margin: 0 auto;",
+							"        }",
+							"",
+							"        .logo, .search {",
+							"            display: inline-block;",
+							"        }",
+							"",
+							"        .",
+							"",
+							"        .search {",
+							"            float: right;",
+							"        }",
+							"        ",
+							"        .product {",
+							"            display: inline-block;",
+							"            width: 33%;",
+							"            background:",
+							"        }",
+							"",
+							"        .products h3 {",
+							"            text-align: center;",
+							"        }",
+							"    </style>",
+							"    <div class=\"header\">",
+							"        <div class=\"header-inner\">",
+							"            <div class=\"logo\"><h1>Union Fashion</h1></div>",
+							"            <div class=\"search\">",
+							"                <input type=\"text\"></input>",
+							"                <button>Search</button>",
+							"            </div>",
+							"        </div>",
+							"    </div>",
+							"    <div class=\"products\">",
+							"        <h3>Product Offers</h3>",
+							"        {{#each res.products}}",
+							"            <div class=\"product\">",
+							"                <img src=\"{{img}}\" />",
+							"                <p>{{name}}</p>",
+							"                <p><del>\\${{unitPrice}}</del> \\${{unitSalePrice}}</p>",
+							"            </div>",
+							"        {{/each}}",
+							"    </div>",
+							"",
+							"",
+							"`",
+							"pm.visualizer.set(template, { res });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "07a0ffc4-942d-457c-bd12-408c3c7546d5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{productsUrl}}/products/offers",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"offers"
+					]
+				},
+				"description": "Returns products where `unitSalePrice` is not equal to `unitPrice`."
+			},
+			"response": [
+				{
+					"id": "011b6777-726c-4d99-9f40-2dae1625eddf",
+					"name": "Products on offer",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productsUrl}}/products/offers",
+							"host": [
+								"{{productsUrl}}"
+							],
+							"path": [
+								"products",
+								"offers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"products\": [\n  {\n   \"id\": \"XYZ-JEAN-123\",\n   \"category\": \"Jeans\",\n   \"brand\": \"Union\",\n   \"name\": \"Union Straight Jeans\",\n   \"color\": \"black\",\n   \"img\": \"https://i.imgur.com/r1Lg3yN.jpg\",\n   \"gender\": \"m\",\n   \"unitPrice\": 49.99,\n   \"unitSalePrice\": 29.99\n  },\n  {\n   \"id\": \"ABC-TOP-789\",\n   \"category\": \"Tops\",\n   \"brand\": \"Union\",\n   \"name\": \"Union Red Top\",\n   \"color\": \"red\",\n   \"img\": \"https://i.imgur.com/n9Njc8R.png\",\n   \"gender\": \"f\",\n   \"unitPrice\": 15.99,\n   \"unitSalePrice\": 12.99\n  },\n  {\n   \"id\": \"FGT-STR-345\",\n   \"category\": \"Tops\",\n   \"brand\": \"Union\",\n   \"name\": \"Union Knit Sweater\",\n   \"color\": \"White\",\n   \"img\": \"https://i.imgur.com/qChuHJ4.png\",\n   \"gender\": \"f\",\n   \"unitPrice\": 23.99,\n   \"unitSalePrice\": 19.99\n  }\n ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Merchandised",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d3d6a1c-6f40-4d01-b872-86b8bf9d8a16",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Expect product to have all relevant keys\", function () {",
+							"    for (var i = 0; i < jsonData.products.length; i++) {",
+							"        pm.expect(jsonData.products[i]).to.include.all.keys(\"id\", \"category\", \"brand\", \"color\", \"gender\", \"unitPrice\", \"unitSalePrice\");",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect gender to be m, f, or u (unisex)\", function () {",
+							"    for (var i = 0; i < jsonData.products.length; i++) {",
+							"        pm.expect(jsonData.products[i].gender).to.be.oneOf([\"m\", \"f\", \"u\"]);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect ID, category, brand, color, gender to be string\", function () {",
+							"    for (var i = 0; i < jsonData.products.length; i++) {",
+							"        pm.expect(jsonData.products[i].id).to.be.a('string');",
+							"        pm.expect(jsonData.products[i].category).to.be.a('string');",
+							"        pm.expect(jsonData.products[i].brand).to.be.a('string');",
+							"        pm.expect(jsonData.products[i].color).to.be.a('string');",
+							"        pm.expect(jsonData.products[i].gender).to.be.a('string');",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect prices to be number\", function () {",
+							"    for (var i = 0; i < jsonData.products.length; i++) {",
+							"        pm.expect(jsonData.products[i].unitPrice).to.be.a('number');",
+							"        pm.expect(jsonData.products[i].unitSalePrice).to.be.a('number');",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Expect prices to be to 2dp or round number\", function () {",
+							"    for (var i = 0; i < jsonData.products.length; i++) {",
+							"        var upSplit = String(jsonData.products[i].unitPrice).split(\".\");",
+							"        var uspSplit = String(jsonData.products[i].unitSalePrice).split(\".\");",
+							"        ",
+							"        if (upSplit.length > 1) {",
+							"            pm.expect(upSplit && upSplit[1]).to.have.length(2);   ",
+							"        } else {",
+							"            pm.expect(upSplit.length).to.eql(1);",
+							"        }",
+							"        ",
+							"        if (uspSplit.length > 1) {",
+							"            pm.expect(uspSplit && uspSplit[1]).to.have.length(2);   ",
+							"        } else {",
+							"            pm.expect(uspSplit.length).to.eql(1);",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "0b4862ef-c59b-4c08-9995-3615dc8dc052",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{productsUrl}}/products/merchandised?strategy=staff",
+					"host": [
+						"{{productsUrl}}"
+					],
+					"path": [
+						"products",
+						"merchandised"
+					],
+					"query": [
+						{
+							"key": "strategy",
+							"value": "staff",
+							"description": "Merchandising strategy."
+						}
+					]
+				},
+				"description": "Return products considered hot by Union's fashion team."
+			},
+			"response": [
+				{
+					"id": "2fff1414-c07c-4062-9fea-e443147c3ff2",
+					"name": "Staff picks",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productsUrl}}/products/merchandised?strategy=staff",
+							"host": [
+								"{{productsUrl}}"
+							],
+							"path": [
+								"products",
+								"merchandised"
+							],
+							"query": [
+								{
+									"key": "strategy",
+									"value": "staff"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"products\": [\n    {\n      \"id\": \"XYZ-JEAN-123\",\n      \"category\": \"Jeans\",\n      \"brand\": \"Union\",\n      \"color\": \"black\",\n      \"gender\": \"m\",\n      \"unitPrice\": 49.99,\n      \"unitSalePrice\": 29.99\n    },\n    {\n      \"id\": \"QWE-JEAN-098\",\n      \"category\": \"Jeans\",\n      \"brand\": \"Levis\",\n      \"color\": \"blue\",\n      \"gender\": \"f\",\n      \"unitPrice\": 39.99,\n      \"unitSalePrice\": 39.99\n    }\n  ]\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"id": "af0521c1-32e1-4b31-9ae0-6f77bd7cfa9e",
+			"key": "baseUrl",
+			"value": "http://url",
+			"type": "string"
+		}
+	]
+}

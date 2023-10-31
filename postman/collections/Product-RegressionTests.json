@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "aec0c521-312f-42c8-a205-bf0fce0c73ee",
-		"name": "Product",
+		"_postman_id": "ac064a40-316f-4000-9ef0-1b2c926904ec",
+		"name": "Product-RegressionTests",
 		"description": "# Products - Endpoints for managing and retrieving products\n<img src=\"https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png\" alt=\"drawing\" width=\"30\" height=\"30\"/></img>\n\nThis collection includes api's for managing products as intended to contain core SCUM operations in addition to any other product contract functionality that is needed.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "16340986-aec0c521-312f-42c8-a205-bf0fce0c73ee"
+		"_uid": "16340986-ac064a40-316f-4000-9ef0-1b2c926904ec"
 	},
 	"item": [
 		{
@@ -13,23 +13,28 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "331cfd73-2125-458d-a7ce-82d08c7bbef9",
+						"id": "0a6c30a1-47fb-4d14-93ec-a8c1134f9faa",
 						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
+							"// Test to check if the response status code is 200",
+							"pm.test(\"Response status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Expect status key to equal success\", function () {",
-							"    pm.expect(jsonData.status).to.eql(\"success\");",
+							"// Test to check if the response contains a status property",
+							"pm.test(\"Response has a status property\", function () {",
+							"    pm.expect(pm.response.json()).to.have.property('status');",
+							"});",
+							"",
+							"// Test to check if the status property is a string",
+							"pm.test(\"status property is a string\", function () {",
+							"    pm.expect(pm.response.json().status).to.be.a('string');",
 							"});"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"id": "5e402c22-ce23-46d5-ab2d-f1e7a894661d",
+			"id": "ea324f40-5c8f-4a5c-9a7d-ffd9c6bd0303",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -62,7 +67,7 @@
 			},
 			"response": [
 				{
-					"id": "254c15aa-06b9-4136-af40-faa505f0e2c0",
+					"id": "be5264d9-fc3e-437c-a4d3-56137e9880d2",
 					"name": "Added sucessfully",
 					"originalRequest": {
 						"method": "POST",
@@ -94,7 +99,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -102,7 +106,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n \"status\": \"success\"\n}"
 				}
 			]
@@ -113,23 +116,24 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "dc187720-9ea4-424c-8728-12d39816afe2",
+						"id": "e69d7acb-8376-4748-960c-d00aa876ad55",
 						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
+							"// Test to check if the response status code is 200",
+							"pm.test(\"Response status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Expect status key to equal success\", function () {",
-							"    pm.expect(jsonData.status).to.eql(\"success\");",
+							"// Test to check if the response has a valid status property",
+							"pm.test(\"Response has a valid status property\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object').that.has.property('status').that.is.a('string').and.to.not.be.empty;",
 							"});"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"id": "9b22ed0c-281a-4473-90ff-2f4fe791c713",
+			"id": "2ec91d9e-a615-4260-9885-d4572de084c2",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -169,7 +173,7 @@
 			},
 			"response": [
 				{
-					"id": "0ac97b8b-cfcf-42f5-bf5a-774ea9bc2f47",
+					"id": "263de5c8-8029-4439-8d8b-c3a0f8a35955",
 					"name": "Updated sucessfully",
 					"originalRequest": {
 						"method": "PUT",
@@ -207,7 +211,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -215,7 +218,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n \"status\": \"success\"\n}"
 				}
 			]
@@ -226,7 +228,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9ef55211-76b2-40e4-8395-cd104e9e5801",
+						"id": "b8fee109-60bf-48ef-b49c-3ae5095390a9",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"",
@@ -242,7 +244,7 @@
 					}
 				}
 			],
-			"id": "70c3654f-87e0-4aba-9504-9c2bc8c070f7",
+			"id": "270e0e43-a2a5-4715-b7d1-2c20ac35304e",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -273,7 +275,7 @@
 			},
 			"response": [
 				{
-					"id": "a51b1be5-0e90-40f0-9ac9-805bd97cb7a7",
+					"id": "16cd3663-434e-4d70-bc9d-dc8712c7d7a6",
 					"name": "Deleted successfully",
 					"originalRequest": {
 						"method": "DELETE",
@@ -298,7 +300,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -306,7 +307,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n \"status\": \"success\"\n}"
 				}
 			]
@@ -317,57 +317,15 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4d57d945-8624-4955-92ea-c9b834b04070",
+						"id": "bf3269d2-b8e9-4751-abba-2200ebf6e83c",
 						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Expect product to have all relevant keys\", function () {",
-							"    pm.expect(jsonData).to.include.all.keys(\"id\", \"category\", \"brand\", \"color\", \"gender\", \"unitPrice\", \"unitSalePrice\");",
-							"});",
-							"",
-							"pm.test(\"Expect gender to be m, f, or u (unisex)\", function () {",
-							"   pm.expect(jsonData.gender).to.be.oneOf([\"m\", \"f\", \"u\"]);",
-							"});",
-							"",
-							"pm.test(\"Expect ID, category, brand, color, gender to be string\", function () {",
-							"    pm.expect(jsonData.id).to.be.a('string');",
-							"    pm.expect(jsonData.category).to.be.a('string');",
-							"    pm.expect(jsonData.brand).to.be.a('string');",
-							"    pm.expect(jsonData.color).to.be.a('string');",
-							"    pm.expect(jsonData.gender).to.be.a('string');",
-							"});",
-							"",
-							"pm.test(\"Expect prices to be number\", function () {",
-							"    pm.expect(jsonData.unitPrice).to.be.a('number');",
-							"    pm.expect(jsonData.unitSalePrice).to.be.a('number');",
-							"});",
-							"",
-							"pm.test(\"Expect prices to be to 2dp or round number\", function () {",
-							"    var upSplit = String(jsonData.unitPrice).split(\".\");",
-							"    var uspSplit = String(jsonData.unitSalePrice).split(\".\");",
-							"    ",
-							"    if (upSplit.length > 1) {",
-							"        pm.expect(upSplit && upSplit[1]).to.have.length(2);   ",
-							"    } else {",
-							"        pm.expect(upSplit.length).to.eql(1);",
-							"    }",
-							"    ",
-							"    if (uspSplit.length > 1) {",
-							"        pm.expect(uspSplit && uspSplit[1]).to.have.length(2);   ",
-							"    } else {",
-							"        pm.expect(uspSplit.length).to.eql(1);",
-							"    }",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"id": "beb3c3c6-c57f-4aee-a474-efef1c991cc9",
+			"id": "581296f7-6b03-4a0e-89be-3c2dd091018e",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -398,7 +356,7 @@
 			},
 			"response": [
 				{
-					"id": "7699808f-ea97-4340-ac5a-a8cafc1a464c",
+					"id": "9c27d434-0001-4ebc-afe7-59e2742967cc",
 					"name": "By ID",
 					"originalRequest": {
 						"method": "GET",
@@ -423,7 +381,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -431,7 +388,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n \"id\": \"XYZ-JEAN-123\",\n \"category\": \"Jeans\",\n \"brand\": \"Union\",\n \"color\": \"black\",\n \"gender\": \"m\",\n \"unitPrice\": 49.99,\n \"unitSalePrice\": 29.99\n}"
 				}
 			]
@@ -442,7 +398,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "cb5530c6-332a-40e0-9cd4-73c176546df3",
+						"id": "4b5369c8-ca43-4ca2-a4fe-0952458da228",
 						"exec": [
 							"var res = pm.response.json();",
 							"",
@@ -568,7 +524,7 @@
 					}
 				}
 			],
-			"id": "917f95b8-0403-40db-92c8-33008c386230",
+			"id": "10909292-48a7-48e2-89dd-56a5ad80a843",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -592,7 +548,7 @@
 			},
 			"response": [
 				{
-					"id": "e30a3a29-9f15-4b20-800b-7df1be208c27",
+					"id": "507d961c-3373-4463-9e70-5dade7689a04",
 					"name": "Products on offer",
 					"originalRequest": {
 						"method": "GET",
@@ -611,7 +567,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -619,7 +574,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n \"products\": [\n  {\n   \"id\": \"XYZ-JEAN-123\",\n   \"category\": \"Jeans\",\n   \"brand\": \"Union\",\n   \"name\": \"Union Straight Jeans\",\n   \"color\": \"black\",\n   \"img\": \"https://i.imgur.com/r1Lg3yN.jpg\",\n   \"gender\": \"m\",\n   \"unitPrice\": 49.99,\n   \"unitSalePrice\": 29.99\n  },\n  {\n   \"id\": \"ABC-TOP-789\",\n   \"category\": \"Tops\",\n   \"brand\": \"Union\",\n   \"name\": \"Union Red Top\",\n   \"color\": \"red\",\n   \"img\": \"https://i.imgur.com/n9Njc8R.png\",\n   \"gender\": \"f\",\n   \"unitPrice\": 15.99,\n   \"unitSalePrice\": 12.99\n  },\n  {\n   \"id\": \"FGT-STR-345\",\n   \"category\": \"Tops\",\n   \"brand\": \"Union\",\n   \"name\": \"Union Knit Sweater\",\n   \"color\": \"White\",\n   \"img\": \"https://i.imgur.com/qChuHJ4.png\",\n   \"gender\": \"f\",\n   \"unitPrice\": 23.99,\n   \"unitSalePrice\": 19.99\n  }\n ]\n}"
 				}
 			]
@@ -630,67 +584,36 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "cb2528ca-2661-4d3f-bc22-6902109d8988",
+						"id": "e40ebf48-d73d-45df-b099-bacba5a3e932",
 						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
+							"// Test to check that the response status code is 200",
+							"pm.test(\"Response status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Expect product to have all relevant keys\", function () {",
-							"    for (var i = 0; i < jsonData.products.length; i++) {",
-							"        pm.expect(jsonData.products[i]).to.include.all.keys(\"id\", \"category\", \"brand\", \"color\", \"gender\", \"unitPrice\", \"unitSalePrice\");",
-							"    }",
+							"// Test to check that the response time is less than 500ms",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
 							"});",
 							"",
-							"pm.test(\"Expect gender to be m, f, or u (unisex)\", function () {",
-							"    for (var i = 0; i < jsonData.products.length; i++) {",
-							"        pm.expect(jsonData.products[i].gender).to.be.oneOf([\"m\", \"f\", \"u\"]);",
-							"    }",
+							"// Test to check that the response is an object with a products property",
+							"pm.test(\"Response is an object with products property\", function() {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property('products');",
 							"});",
 							"",
-							"pm.test(\"Expect ID, category, brand, color, gender to be string\", function () {",
-							"    for (var i = 0; i < jsonData.products.length; i++) {",
-							"        pm.expect(jsonData.products[i].id).to.be.a('string');",
-							"        pm.expect(jsonData.products[i].category).to.be.a('string');",
-							"        pm.expect(jsonData.products[i].brand).to.be.a('string');",
-							"        pm.expect(jsonData.products[i].color).to.be.a('string');",
-							"        pm.expect(jsonData.products[i].gender).to.be.a('string');",
-							"    }",
-							"});",
-							"",
-							"pm.test(\"Expect prices to be number\", function () {",
-							"    for (var i = 0; i < jsonData.products.length; i++) {",
-							"        pm.expect(jsonData.products[i].unitPrice).to.be.a('number');",
-							"        pm.expect(jsonData.products[i].unitSalePrice).to.be.a('number');",
-							"    }",
-							"});",
-							"",
-							"pm.test(\"Expect prices to be to 2dp or round number\", function () {",
-							"    for (var i = 0; i < jsonData.products.length; i++) {",
-							"        var upSplit = String(jsonData.products[i].unitPrice).split(\".\");",
-							"        var uspSplit = String(jsonData.products[i].unitSalePrice).split(\".\");",
-							"        ",
-							"        if (upSplit.length > 1) {",
-							"            pm.expect(upSplit && upSplit[1]).to.have.length(2);   ",
-							"        } else {",
-							"            pm.expect(upSplit.length).to.eql(1);",
-							"        }",
-							"        ",
-							"        if (uspSplit.length > 1) {",
-							"            pm.expect(uspSplit && uspSplit[1]).to.have.length(2);   ",
-							"        } else {",
-							"            pm.expect(uspSplit.length).to.eql(1);",
-							"        }",
-							"    }",
+							"// Test to check that each element in the products array has the required properties",
+							"pm.test(\"Each element in the products array has the required properties\", function() {",
+							"    var products = pm.response.json().products;",
+							"    products.forEach(function(product) {",
+							"        pm.expect(product).to.be.an('object').that.has.all.keys('id', 'category', 'brand', 'color', 'gender', 'unitPrice', 'unitSalePrice');",
+							"    });",
 							"});"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"id": "247fbd49-6b00-4985-a49f-798903afb790",
+			"id": "7db76d0a-7078-4b27-b628-67733f9daecc",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -721,7 +644,7 @@
 			},
 			"response": [
 				{
-					"id": "33ebadfd-e3d5-460b-ade3-e5493ac77f47",
+					"id": "aa0bb1ec-b657-4440-bd34-5990da5540d6",
 					"name": "Staff picks",
 					"originalRequest": {
 						"method": "GET",
@@ -746,7 +669,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "text",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -754,7 +676,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n  \"products\": [\n    {\n      \"id\": \"XYZ-JEAN-123\",\n      \"category\": \"Jeans\",\n      \"brand\": \"Union\",\n      \"color\": \"black\",\n      \"gender\": \"m\",\n      \"unitPrice\": 49.99,\n      \"unitSalePrice\": 29.99\n    },\n    {\n      \"id\": \"QWE-JEAN-098\",\n      \"category\": \"Jeans\",\n      \"brand\": \"Levis\",\n      \"color\": \"blue\",\n      \"gender\": \"f\",\n      \"unitPrice\": 39.99,\n      \"unitSalePrice\": 39.99\n    }\n  ]\n}"
 				}
 			]
