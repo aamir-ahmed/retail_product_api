@@ -12,7 +12,7 @@ steps:
     script: |
         postman login --with-api-key $(POSTMAN_API_KEY)
         # Run your collection using Postman CLI
-        postman collection run "$(Build.SourcesDirectory)/postman/collections/Product - Integration Tests.json" -e "16340986-7c3ff904-3035-49f0-b261-d53da68077df"
-        postman collection run "$(Build.SourcesDirectory)/postman/collections/Product - Regression Tests.json" -e "16340986-7c3ff904-3035-49f0-b261-d53da68077df"
+        postman collection run "$(Build.SourcesDirectory)/postman/collections/Product-IntegrationTests.json" -e "16340986-7c3ff904-3035-49f0-b261-d53da68077df"
+        postman collection run "$(Build.SourcesDirectory)/postman/collections/Product-RegressionTests.json" -e "16340986-7c3ff904-3035-49f0-b261-d53da68077df"
         # Lint your API using Postman CLI
         postman api lint db8f17a4-f2bb-4de4-ba26-e71c66e60dc1
