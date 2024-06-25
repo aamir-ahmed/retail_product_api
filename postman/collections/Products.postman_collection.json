@@ -1,0 +1,1857 @@
+{
+	"info": {
+		"_postman_id": "d57ad15e-b064-414f-8e21-298db12469b4",
+		"name": "Products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16863310",
+		"_collection_link": "https://technology-demo.postman.co/workspace/%255BEng%255D-Products~fb94abca-3dad-4ef0-998e-22ab5a43dc4b/collection/16863310-d57ad15e-b064-414f-8e21-298db12469b4?action=share&source=collection_link&creator=16863310"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "products",
+					"item": [
+						{
+							"name": "{productId}",
+							"item": [
+								{
+									"name": "Get a product from the database",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {",
+													"    pm.expect(pm.response.to.have.status(200));",
+													"});",
+													"",
+													"",
+													"pm.test(\"Response has the required fields - id, name, description, model, sku, cost, and imageUrl\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData).to.have.property('id').that.is.a('string');",
+													"    pm.expect(responseData).to.have.property('name').that.is.a('string');",
+													"    pm.expect(responseData).to.have.property('description').that.is.a('string');",
+													"    pm.expect(responseData).to.have.property('model').that.is.a('string');",
+													"    pm.expect(responseData).to.have.property('sku').that.is.a('string');",
+													"    pm.expect(responseData).to.have.property('cost').that.is.a('number');",
+													"    pm.expect(responseData).to.have.property('imageUrl').that.is.a('string');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Cost is a non-negative number\", function () {",
+													"  const responseData = pm.response.json();",
+													"  ",
+													"  pm.expect(responseData).to.be.an('object');",
+													"  pm.expect(responseData.cost).to.be.a('number').and.to.be.at.least(0);",
+													"});",
+													"",
+													"",
+													"pm.test(\"Description is a non-empty string\", function () {",
+													"  const responseData = pm.response.json();",
+													"  ",
+													"  pm.expect(responseData).to.be.an('object');",
+													"  pm.expect(responseData.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");",
+													"});",
+													"",
+													"",
+													"pm.test(\"ImageUrl is in a valid URL format\", function () {",
+													"  const responseData = pm.response.json();",
+													"  ",
+													"  pm.expect(responseData).to.be.an('object');",
+													"  pm.expect(responseData.imageUrl).to.match(/^http(s)?:\\/\\/.+/);",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/products/:productId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products",
+												":productId"
+											],
+											"variable": [
+												{
+													"key": "productId",
+													"value": "consectetur non labore"
+												}
+											]
+										},
+										"description": "\n### Retrieve Product Details\n\nThis endpoint retrieves the details of a specific product identified by the `productId`.\n\n#### Request\n\n- Method: `GET`\n- URL: `{{baseUrl}}/api/products/:productId`\n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": { \"type\": \"string\" },\n    \"name\": { \"type\": \"string\" },\n    \"description\": { \"type\": \"string\" },\n    \"model\": { \"type\": \"string\" },\n    \"sku\": { \"type\": \"string\" },\n    \"cost\": { \"type\": \"number\" },\n    \"imageUrl\": { \"type\": \"string\" }\n  }\n}\n```\n"
+									},
+									"response": [
+										{
+											"name": "Product retrieved successfully",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										},
+										{
+											"name": "Unexpected error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Create a new product in the database",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"",
+													"pm.test(\"Response has the required fields - id, name, description, model, sku, cost, imageUrl\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.id).to.be.a('string');",
+													"    pm.expect(responseData.name).to.be.a('string');",
+													"    pm.expect(responseData.description).to.be.a('string');",
+													"    pm.expect(responseData.model).to.be.a('string');",
+													"    pm.expect(responseData.sku).to.be.a('string');",
+													"    pm.expect(responseData.cost).to.be.a('number');",
+													"    pm.expect(responseData.imageUrl).to.be.a('string');",
+													"});",
+													"",
+													"",
+													"pm.test(\"Name should be a non-empty string\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+													"});",
+													"",
+													"",
+													"pm.test(\"Description is a non-empty string\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");",
+													"});",
+													"",
+													"",
+													"pm.test(\"Cost should be a non-negative number\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData.cost).to.be.a('number');",
+													"    pm.expect(responseData.cost).to.be.at.least(0);",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/products/:productId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products",
+												":productId"
+											],
+											"variable": [
+												{
+													"key": "productId",
+													"value": "consectetur non labore"
+												}
+											]
+										},
+										"description": "### Update Product Details\n\nThis endpoint allows the client to update the details of a specific product.\n\n#### Request\n\n- Method: PUT\n    \n- URL: {{baseUrl}}/api/products/:productId\n    \n- Body:\n    - name (string, required): The name of the product.\n        \n    - description (string, required): The description of the product.\n        \n    - model (string, required): The model of the product.\n        \n    - sku (string, required): The stock keeping unit (SKU) of the product.\n        \n    - cost (number, required): The cost of the product.\n        \n    - imageUrl (string, required): The URL of the image for the product.\n        \n\n#### Response\n\nThe response will be a JSON object with the following properties:\n\n- id (string): The unique identifier of the product.\n    \n- name (string): The name of the product.\n    \n- description (string): The description of the product.\n    \n- model (string): The model of the product.\n    \n- sku (string): The stock keeping unit (SKU) of the product.\n    \n- cost (number): The cost of the product.\n    \n- imageUrl (string): The URL of the image for the product.\n    \n\n``` json\n{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"description\": \"\",\n  \"model\": \"\",\n  \"sku\": \"\",\n  \"cost\": 0,\n  \"imageUrl\": \"\"\n}\n\n ```\n\n#### Response JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": { \"type\": \"string\" },\n    \"name\": { \"type\": \"string\" },\n    \"description\": { \"type\": \"string\" },\n    \"model\": { \"type\": \"string\" },\n    \"sku\": { \"type\": \"string\" },\n    \"cost\": { \"type\": \"number\" },\n    \"imageUrl\": { \"type\": \"string\" }\n  }\n}\n\n ```"
+									},
+									"response": [
+										{
+											"name": "Product was created successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Location",
+													"value": "consectetur non labore",
+													"description": {
+														"content": "The URL of the new product that was just updated.",
+														"type": "text/plain"
+													}
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										},
+										{
+											"name": "Unexpected error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete a product from the database",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "x-mock-response-code",
+												"value": "204",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/products/:productId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products",
+												":productId"
+											],
+											"variable": [
+												{
+													"key": "productId",
+													"value": "consectetur non labore"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Product deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										},
+										{
+											"name": "Unexpected error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/products/:productId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"products",
+														":productId"
+													],
+													"variable": [
+														{
+															"key": "productId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Returns a list of products from the database",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 2000ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/products",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "A list of current products",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/products",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n    \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n    \"model\": \"794297-0100\",\n    \"sku\": \"394807\",\n    \"cost\": 445,\n    \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n  },\n  {\n    \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n    \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n    \"model\": \"794297-0100\",\n    \"sku\": \"394807\",\n    \"cost\": 445,\n    \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n  }\n]"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/products",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+								},
+								{
+									"name": "Unexpected error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/products",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a new product in the database",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "x-mock-response-code",
+										"value": "201",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/products",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Product was created successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/products",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Location",
+											"value": "consectetur non labore",
+											"description": {
+												"content": "The URL of the new product that was just created.",
+												"type": "text/plain"
+											}
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/products",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+								},
+								{
+									"name": "Unexpected error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Bose Noise Cancelling Over-Ear Headphones 700 (Black)\",\n  \"description\": \"- 11 levels of noise cancelling\\n- Google Assistant and Amazon Alexa built in\\n- 20 hours of battery life\\n\",\n  \"model\": \"794297-0100\",\n  \"sku\": \"394807\",\n  \"cost\": 445,\n  \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0024/9803/5810/products/394807-Product-0-I_d1664990-4dfb-462f-bb93-2fb469ed7d5d_800x800.jpg\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/products",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "orders",
+					"item": [
+						{
+							"name": "{orderId}",
+							"item": [
+								{
+									"name": "Get an order from the database",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "consectetur non labore"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Order retrieved successfully",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										},
+										{
+											"name": "Unexpected error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Create a new order in the database",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "consectetur non labore"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Order was updated successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Location",
+													"value": "consectetur non labore",
+													"description": {
+														"content": "The URL of the new order that was just updated.",
+														"type": "text/plain"
+													}
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										},
+										{
+											"name": "Unexpected error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete an order from the database",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "consectetur non labore"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Order deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										},
+										{
+											"name": "Unexpected error",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/orders/:orderId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"orders",
+														":orderId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "consectetur non labore"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Returns a list of orders from the database",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "A list of current orders",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"status\": \"OPEN\",\n    \"date\": \"2022-03-12T23:20:50.52Z\",\n    \"productIds\": [\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n    ],\n    \"cost\": 948.32,\n    \"tax\": 94.83,\n    \"taxRate\": 10,\n    \"total\": 1043.152\n  },\n  {\n    \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"status\": \"OPEN\",\n    \"date\": \"2022-03-12T23:20:50.52Z\",\n    \"productIds\": [\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n      \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n    ],\n    \"cost\": 948.32,\n    \"tax\": 94.83,\n    \"taxRate\": 10,\n    \"total\": 1043.152\n  }\n]"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+								},
+								{
+									"name": "Unexpected error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a new order in the database",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "x-mock-response-code",
+										"value": "201",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Order was created successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Location",
+											"value": "consectetur non labore",
+											"description": {
+												"content": "The URL of the new order that was just created.",
+												"type": "text/plain"
+											}
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+								},
+								{
+									"name": "Unexpected error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"OPEN\",\n  \"date\": \"2022-03-12T23:20:50.52Z\",\n  \"productIds\": [\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\",\n    \"a1805cde-f34f-4945-9fec-3e096fef4bdd\"\n  ],\n  \"cost\": 948.32,\n  \"tax\": 94.83,\n  \"taxRate\": 10,\n  \"total\": 1043.152\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"orders"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"OK\",\n  \"message\": \"The service did not work as expected.\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "apikey",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{apiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		}
+	]
+}
